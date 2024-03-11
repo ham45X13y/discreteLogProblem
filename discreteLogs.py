@@ -5,14 +5,14 @@ from datetime import datetime, timedelta
 
 
 def main():
-    p = input("Input prime for mod value: ")
-    l = input("Input log base: ")
-    e = input("Input Number: ")
+    p = int(input("Input prime for mod value: "))
+    l = int(input("Input log base: "))
+    e = int(input("Input Number: "))
     print("Pick Algorithm:")
     print("[1] Divide and Conquer")
     print("[2] Pohlig-Hellman")
     print("[3] Both")
-    algo = input("Enter number: ")
+    algo = int(input("Enter number: "))
     now = datetime.now()
     start = timedelta(hours=now.hour, minutes=now.minute, seconds=now.second, microseconds=now.microsecond)
     if(algo == 1):
@@ -85,7 +85,7 @@ def computeBValues(b,l,p,e):
     i = 0
     b_values={}
     while(i <= b):
-        num = (e*pow(modinv(l,p), i, p))%p
+        num = (e*pow(int(modinv(l,p)), int(i), int(p)))%p
         b_values.update({num: i})
         i+= 1
     return b_values
@@ -152,14 +152,14 @@ def getXModP(e, l, p, fac, pwr):
     order = (p-1)/fac
     eCurrent = e
     xFinal = 0
-    lRaisedModp = pow(l, order, p)
+    lRaisedModp = pow(int(l),int(order), int(p))
     facPow = 1
     lInv = modinv(l,p)
     for i in range(0,pwr):
-        eRaisedModp = pow(eCurrent, order, p)
+        eRaisedModp = pow(int(eCurrent), int(order), int(p))
         xCurrent = bruteForce(lRaisedModp, eRaisedModp, p)
         xFinal += xCurrent*facPow
-        eCurrent = eCurrent*pow(lInv, xCurrent*facPow, p) % p
+        eCurrent = eCurrent*pow(int(lInv), int(xCurrent*facPow), int(p)) % p
         facPow *= fac
         order /= fac
     return (xFinal,facPow)
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print 'oops... interrupted \_[o.O]_/'
+        print ('oops... interrupted \_[o.O]_/')
         try:
             sys.exit(0)
         except SystemExit:
